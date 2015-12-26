@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <title>AMC Map</title>
+        <script type="text/javascript" src="fusioncharts.js"></script>
+        <script type="text/javascript" src="fusioncharts.theme.fint.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+
+            FusionCharts.ready(function() {
+
+                var salesByState = new FusionCharts({
+                    "type": "maps/france",
+                    "renderAt": "chartContainer",
+                    "width": "600",
+                    "height": "400",
+                    "dataFormat": "json",
+                    "dataSource": {
+                        "chart": {
+                            "caption": "Epidemic Prediction of Water Borne Diseases",
+                            "subcaption": "Live",
+                            "entityFillHoverColor": "#cccccc",
+                            "thememaps/usa": "fint"
+                        },
+                        "colorrange": {
+                            "color": [
+                                {
+                                    "minvalue": "0",
+                                    "maxvalue": "1",
+                                    "code": "#00FF00",
+                                    "displayValue": "Safe"
+                                },
+                                {
+                                    "minvalue": "1",
+                                    "maxvalue": "2",
+                                    "code": "#FFFF00",
+                                    "displayValue": "Warning"
+                                },
+                                {
+                                    "minvalue": "2",
+                                    "maxvalue": "3",
+                                    "code": "#FF0000",
+                                    "displayValue": "Critical"
+                                }
+                            ]
+                        },
+                        "data": [
+                            {
+                                "id": "001",
+                                "value": "0"
+
+                            },
+                            {
+                                "id": "002",
+                                "value": "0",
+                            },
+                            {
+                                "id": "003",
+                                "value": "0"
+                            },
+                            {
+                                "id": "004",
+                                "value": "0"
+                            },
+                            {
+                                "id": "005",
+                                "value": "0"
+                            },
+                            {
+                                "id": "006",
+                                "value": "1"
+                            },
+                            {
+                                "id": "007",
+                                "value": "2"
+                            },
+                            {
+                                "id": "008",
+                                "value": "0"
+                            },
+                            {
+                                "id": "009",
+                                "value": "1"
+                            },
+                            {
+                                "id": "010",
+                                "value": "0"
+                            },
+                            {
+                                "id": "011",
+                                "value": "1"
+                            },
+                            {
+                                "id": "012",
+                                "value": "2"
+                            },
+                            {
+                                "id": "013",
+                                "value": "0"
+                            },
+                            {
+                                "id": "014",
+                                "value": "0"
+                            },
+                            {
+                                "id": "015",
+                                "value": "0"
+                            },
+                            {
+                                "id": "016",
+                                "value": "1"
+                            },
+                            {
+                                "id": "017",
+                                "value": "2"
+                            },
+                            {
+                                "id": "018",
+                                "value": "0"
+                            },
+                            {
+                                "id": "019",
+                                "value": "0"
+                            },
+                            {
+                                "id": "020",
+                                "value": "0"
+                            },
+                            {
+                                "id": "021",
+                                "value": "1"
+                            },
+                            {
+                                "id": "022",
+                                "value": "2"
+                            },
+                            {
+                                "id": "023",
+                                "value": "0"
+                            }
+                        ]
+                    },
+                    "events": {
+                        "entityClick": function(evt, data) {
+                            $.ajax({
+                                url: "http://localhost:8084/dirtywater/wardchart?start_date=2015-12-13&end_date=2015-12-19&ward_id="+data.id,
+                                dataType: 'json',
+                                success: function(data) {
+                                    var visitChart = new FusionCharts(data).render();
+                                }
+                            });
+                        }
+                    }
+                });
+                salesByState.render();
+            });
+        </script>
+    </head>
+    <body>
+        <div id="chartContainer" style="float:left">A US map will load here!</div>
+        <div id="chart-container" style="float:right; margin-right: 100px">FusionCharts will render here</div>
+    </body>
+</html>
